@@ -1,0 +1,36 @@
+//
+//  _layout.scss
+
+
+::selection {
+  background-color: $highlight;
+  color: $light;
+}
+
+html {
+  background-color: $light;
+  color: $dark;
+}
+
+html,
+body {
+  width: 100%;
+}
+
+ul {
+}
+
+ol {
+}
+
+li {
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}

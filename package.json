@@ -1,0 +1,51 @@
+{
+  "name": "static",
+  "author": "Chris Corby",
+  "browserslist": [
+    "last 3 versions",
+    "ie 11",
+    "ie 10",
+    "ie 9",
+    "ios_saf 8"
+  ],
+  "config": {
+    "css_directory": "assets/css/",
+    "css_input": "assets/css/main.scss",
+    "css_output": "assets/css/build/style.css",
+    "js_directory": "assets/js/",
+    "js_input": "assets/js/main.js",
+    "js_output": "assets/js/build/bundle.js",
+    "local_url": "/static",
+    "php_files": "*.php snippets/*.php"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.0",
+    "babel-preset-latest": "^6.24.0",
+    "node-sass": "^4.5.1",
+    "npm-run-all": "^4.0.2",
+    "postcss-cli": "^3.0.0",
+    "rollup": "^0.41.6",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "uglify-js": "^2.8.15",
+    "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "fontfaceobserver": "^2.0.9",
+    "lazysizes": "^3.0.0",
+    "promise-polyfill": "^6.0.2"
+  },
+  "scripts": {
+    "dev:js": "rollup --config --sourcemap inline --input $npm_package_config_js_input --output $npm_package_config_js_output",
+    "watch:js": "watch 'yarn run dev:js' $npm_package_config_js_directory --ignoreDirectoryPattern='/build/' --interval='2'",
+    "build:js": "rollup --config --input $npm_package_config_js_input | babel --presets latest | uglifyjs - --output $npm_package_config_js_output",
+    "dev:css": "node-sass --source-map-embed --quiet $npm_package_config_css_input $npm_package_config_css_output",
+    "watch:css": "watch 'yarn run dev:css' $npm_package_config_css_directory --ignoreDirectoryPattern='/build/' --interval='2'",
+    "build:css": "node-sass --output-style compressed $npm_package_config_css_input | postcss --no-map --use autoprefixer --output $npm_package_config_css_output",
+    "sync": "browser-sync start --proxy localhost:8888 --browser 'google chrome' --startPath $npm_package_config_local_url --files $npm_package_config_php_files $npm_package_config_js_output $npm_package_config_css_output",
+    "start": "npm-run-all --parallel watch:js watch:css",
+    "build": "npm-run-all --parallel build:css build:js"
+  }
+}

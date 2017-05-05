@@ -1,0 +1,78 @@
+//
+//  _mixins.scss
+
+
+//  Media-Queries (mixin)
+//  @include media-query(small) { width: 50%; }
+//	@include media-query(small, max) { width: 50%; }
+//	The $direction parameter will default to 'min', but can be 'max'
+
+@mixin media-query($breakpoint, $direction:min) {
+	
+	$small:		500px;
+	$medium: 	750px;
+	$large:		1000px;
+	
+	//	If a max-width query, take 1 off the breakpoints, prevents a min-width
+	//	and max-width query being simultaneously active on 1 breakpoint
+	@if $direction == 'max' {
+		$small:		($small - 1);
+		$medium: 	($medium - 1);
+		$large:		($large - 1);
+	}
+    
+    //  Small
+	@if $breakpoint == small {
+		@media (#{$direction}-width: $small) { @content; }
+    }
+
+	//  Medium
+    @else if $breakpoint == medium {
+		@media (#{$direction}-width: $medium) { @content; }
+    }
+
+	//  Large
+    @else if $breakpoint == large {
+		@media (#{$direction}-width: $large) { @content; }
+    }
+
+	//	Max-width
+	@else if $breakpoint == max {
+		@media (#{$direction}-width: $max-width) { @content; }
+    }
+}
+
+
+//  Clearfix
+//  @include clearfix();
+//  IE8+
+
+@mixin clearfix() {
+    
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+//  Custom Underline
+//  @include underline($light, $dark, 2px, 97%);
+
+@mixin underline($underline-color, $bg-color, $underline-size, $position) {
+    text-decoration: none;
+    background-image: linear-gradient(rgba($underline-color, 1), rgba($underline-color, 1));
+    background-repeat: repeat-x;
+    background-size: $underline-size $underline-size;
+    background-position: 0 $position;
+    
+    //	Descenders to cut through underline
+//    text-shadow:
+//        3px 0 $bg-color,
+//        2px 0 $bg-color,
+//        1px 0 $bg-color,
+//        -1px 0 $bg-color,
+//        -2px 0 $bg-color,
+//        -3px 0 $bg-color;
+}

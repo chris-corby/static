@@ -1,0 +1,61 @@
+//
+//  _typography.scss
+
+//  Font
+//@font-face {
+//	font-family: 'Font';
+//	src: url('fonts/Font/Font.eot');
+//	src: url('fonts/Font/Font.eot?#iefix') format('embedded-opentype'),
+//		 url('fonts/Font/Font.woff2') format('woff2'),
+//		 url('fonts/Font/Font.woff') format('woff'),
+//		 url('fonts/Font/Font.ttf') format('truetype'),
+//		 url('fonts/Font/Font.svg#Font') format('svg');
+//	font-weight: 300;
+//	font-style: normal;
+//}
+
+html {
+	font-family: sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	font-style: normal;
+  line-height: 1.2;
+  letter-spacing: 0px;
+	text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;		//  crisper
+  word-wrap: break-word;
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: 'liga', 'clig';
+  hyphens: auto;
+	
+	@include media-query(small) {
+		hyphens: none;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+b,
+strong {
+	font-style: oblique;
+}
+
+p {
+  margin-bottom: 1rem;
+}

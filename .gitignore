@@ -1,0 +1,8 @@
+# System Files
+*.DS_Store
+
+# Build Files
+*.sass-cache
+node_modules
+assets/css/build
+assets/js/build

@@ -1,0 +1,23 @@
+//
+//  _variables.scss
+
+//  Colours
+$light: rgb(255, 255, 255);
+$grey: rgb(100, 100, 100);
+$dark: rgb(0, 0, 0);
+$blue: rgb(0, 0, 255);
+$highlight: $blue;
+
+
+//  Max Width
+$max-width--value: 1400;
+$max-width: ($max-width--value * 1px);
+
+
+//  Measurements
+$margin--small: 20px;
+$margin--large: 40px;
+
+
+//  Transitions
+$transition--ease-out: 0.15s cubic-bezier(0.250, 0.460, 0.450, 0.940);
