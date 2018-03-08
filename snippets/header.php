@@ -21,8 +21,6 @@ require_once 'snippets/site.php'; ?>
     <link rel="canonical" href="<?= $site_url . $page_url; ?>" itemprop="url">
 		
     <?php //  Prefetch ?>
-    <link href="//code.jquery.com" rel="dns-prefetch">
-    <link href="//www.google-analytics.com" rel="dns-prefetch">
 
     <?php //  Fonts
           //  If fonts already cached, load straight away
@@ -83,7 +81,7 @@ require_once 'snippets/site.php'; ?>
 	<body>
 
     <?php   //  Browse Happy ?>
-    <!--[if lt IE 9]>
+    <!--[if IE]>
       <div class="browse-happy">
         To experience this site as it was intended, please <a href="http://browsehappy.com/" target="_blank">upgrade your browser</a>.
       </div>
