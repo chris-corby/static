@@ -1,20 +1,24 @@
 //
 //  _layout.scss
 
-
 ::selection {
-  background-color: $highlight;
-  color: $light;
+  background-color: $light;
+  color: $dark;
 }
 
 html {
   background-color: $light;
-  color: $dark;
 }
 
 html,
 body {
   width: 100%;
+  color: $dark;
+}
+
+
+main {
+  overflow-x: hidden;
 }
 
 ul {
@@ -33,4 +37,44 @@ a:hover,
 a:active {
   color: inherit;
   text-decoration: none;
+}
+
+//  Fix bug in Edge where <noscript> would show after AJAX page load
+//  Give <img> inside the tag a 'noscript' class
+html.js .noscript {
+  display: none;
+}
+
+//
+//  Noscroll
+//  See: https://stackoverflow.com/questions/9280258/prevent-body-scrolling-but-allow-overlay-scrolling#answer-45230674
+body.noscroll {
+  position: fixed;
+  left: 0;
+  right: 0;
+  overflow-y: scroll; // keep scroll bar
+}
+
+//
+//  State Size
+//  Allows state.js to track what the current breakpoint is
+.js-state-size {
+  position: relative; // must have position for z to be picked up in JS
+  z-index: 1;
+
+  @include media-query(min) {
+    z-index: 2;
+  }
+
+  @include media-query(small) {
+    z-index: 3;
+  }
+
+  @include media-query(medium) {
+    z-index: 4;
+  }
+
+  @include media-query(large) {
+    z-index: 5;
+  }
 }

@@ -1,28 +1,21 @@
 {
   "name": "static",
   "author": "Chris Corby",
+  "license": "UNLICENSED",
   "browserslist": [
-    "last 3 versions",
+    ">0.25%",
     "ie 11",
     "ie 10",
     "ie 9",
-    "ios_saf 8"
+    "ios_saf 8",
+    "not op_mini all"
   ],
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "browsers": [
-            "last 3 versions",
-            "ie 11",
-            "ie 10",
-            "ie 9",
-            "ios_saf 8"
-          ]
-        }
+    ["@babel/preset-env", {
+      "targets": {
+        "browsers": [">0.25%", "ie 11", "ie 10", "ie 9", "ios_saf 8", "not op_mini all"]
       }
-    ]
+    }]
   ],
   "config": {
     "css_directory": "assets/css/",

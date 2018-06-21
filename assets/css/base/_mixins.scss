@@ -4,75 +4,167 @@
 
 //  Media-Queries (mixin)
 //  @include media-query(small) { width: 50%; }
-//	@include media-query(small, max) { width: 50%; }
-//	The $direction parameter will default to 'min', but can be 'max'
+//  @include media-query(small, max) { width: 50%; }
+//  The $direction parameter will default to 'min', but can be 'max'
 
 @mixin media-query($breakpoint, $direction:min) {
-	
-	$small:		500px;
-	$medium: 	750px;
-	$large:		1000px;
-	
-	//	If a max-width query, take 1 off the breakpoints, prevents a min-width
-	//	and max-width query being simultaneously active on 1 breakpoint
-	@if $direction == 'max' {
-		$small:		($small - 1);
-		$medium: 	($medium - 1);
-		$large:		($large - 1);
-	}
+  
+  $small: $break--small;
+  $medium: $break--medium;
+  $large: $break--large;
+  
+  //  If a max-width query, take 1 off the breakpoints, prevents a min-width
+  //  and max-width query being simultaneously active on 1 breakpoint
+  @if $direction == 'max' {
+    $small: ($small - 1);
+    $medium: ($medium - 1);
+    $large: ($large - 1);
+  }
     
-    //  Small
-	@if $breakpoint == small {
-		@media (#{$direction}-width: $small) { @content; }
-    }
+  //  Min
+  @if $breakpoint == min {
+    @media (#{$direction}-width: $min-width) { @content; }
+  }
 
-	//  Medium
-    @else if $breakpoint == medium {
-		@media (#{$direction}-width: $medium) { @content; }
-    }
+  //  Small
+  @elseif $breakpoint == small {
+    @media (#{$direction}-width: $small) { @content; }
+  }
 
-	//  Large
-    @else if $breakpoint == large {
-		@media (#{$direction}-width: $large) { @content; }
-    }
+  //  Medium
+  @else if $breakpoint == medium {
+    @media (#{$direction}-width: $medium) { @content; }
+  }
 
-	//	Max-width
-	@else if $breakpoint == max {
-		@media (#{$direction}-width: $max-width) { @content; }
-    }
+  //  Large
+  @else if $breakpoint == large {
+    @media (#{$direction}-width: $large) { @content; }
+  }
+
+  //  Max-width
+  @else if $breakpoint == max {
+    @media (#{$direction}-width: $max-width) { @content; }
+  }
 }
 
 
 //  Clearfix
-//  @include clearfix();
-//  IE8+
+//  @include clearfix;
 
-@mixin clearfix() {
-    
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+
+//  Visually Hidden
+//  For when display: none isn't appropriate, e.g. for
+//  elements that are useful for accessibility but should not
+//  be seen 
+//  See: https://css-tricks.com/places-its-tempting-to-use-display-none-but-dont/
+
+//  @include hidden;
+
+@mixin hidden {
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 0 0); 
+  height: 1px;
+  width: 1px; 
+  margin: -1px;
+  padding: 0;
+  border: 0; 
 }
 
 
 //  Custom Underline
-//  @include underline($light, $dark, 2px, 97%);
+//  @include underline($blue, $light, 3%, 97%);
 
-@mixin underline($underline-color, $bg-color, $underline-size, $position) {
-    text-decoration: none;
-    background-image: linear-gradient(rgba($underline-color, 1), rgba($underline-color, 1));
-    background-repeat: repeat-x;
-    background-size: $underline-size $underline-size;
-    background-position: 0 $position;
-    
-    //	Descenders to cut through underline
-//    text-shadow:
-//        3px 0 $bg-color,
-//        2px 0 $bg-color,
-//        1px 0 $bg-color,
-//        -1px 0 $bg-color,
-//        -2px 0 $bg-color,
-//        -3px 0 $bg-color;
+@mixin underline($bg-color, $underline-color, $underline-size, $position) {
+  text-decoration: none;
+  background-image: linear-gradient(rgba($underline-color, 1), rgba($underline-color, 1));
+  background-repeat: repeat-x;
+  background-size: $underline-size $underline-size;
+  background-position: 0 $position;
+
+  // So descenders cut through the underline
+  text-shadow:
+    3px 0 $bg-color,
+    2px 0 $bg-color,
+    1px 0 $bg-color,
+    -1px 0 $bg-color,
+    -2px 0 $bg-color,
+    -3px 0 $bg-color;
+
+
+  // Adjustment for position on retina
+  @media (-webkit-min-device-pixel-ratio: 1.75), (min-resolution: 168dppx) {
+    background-position: 0 ($position / 1.02);
+  }
+}
+
+//  Strip Unit
+//  see: http://www.sassmeister.com/gist/7f22e44ace49b5124eec
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+//
+//  Fluid
+//  Scale a measurement between a min and max between two break points
+//  the values have to be in pixels, same as media queries
+//  Pattern:
+//
+//  el {
+//    width: 10px;
+//
+//    @include media-query(min) {
+//       @include fluid(width, min, max, 10px, 100px);
+//    } 
+//
+//    @include media-query(max) {
+//      width: 100px;
+//    }  
+//  }
+
+@mixin fluid($properties, $minimum-break, $maximum-break, $min-size, $max-size) {
+  //  Create the variables initially
+  $min-break: false;
+  $max-break: false;
+
+  //  Set values based on breakpoints
+  @if $minimum-break == 'min' {
+    $min-break: $min-width;
+  } @else if $minimum-break == 'small' {
+    $min-break: $break--small;
+  } @else if $minimum-break == 'medium' {
+    $min-break: $break--medium;
+  } @else if $minimum-break == 'large' {
+    $min-break: $break--large;
+  } @else if $minimum-break == 'max' {
+    $min-break: $max-width;
+  }
+
+  @if $maximum-break == 'min' {
+    $max-break: $min-width;
+  } @else if $maximum-break == 'small' {
+    $max-break: $break--small;
+  } @else if $maximum-break == 'medium' {
+    $max-break: $break--medium;
+  } @else if $maximum-break == 'large' {
+    $max-break: $break--large;
+  } @else if $maximum-break == 'max' {
+    $max-break: $max-width;
+  }
+
+  //  Work out differences to simplify calc expression for browser
+  $break-diff: (strip-unit($max-break) - strip-unit($min-break));
+  $size-diff: (strip-unit($max-size) - strip-unit($min-size));
+
+  @each $property in $properties {
+    #{$property}: calc(#{$min-size} + ((#{$size-diff} * (100vw - #{$min-break})) /  #{$break-diff}));
+  } 
 }

@@ -1,8 +1,6 @@
 //
 //  main.js
 
-//  Polyfills
-
 //  LazySizes
 import 'lazysizes/plugins/respimg/ls.respimg';  //  responsive image polyfill
 import 'lazysizes';

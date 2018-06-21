@@ -1,4 +1,4 @@
-<?php	//	Site Settings
+<?php //  Site Settings
 require_once 'snippets/site.php'; ?>
 
 <!DOCTYPE html>

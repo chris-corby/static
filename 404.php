@@ -1,4 +1,4 @@
-<?php   //  Page Variables
+<?php //  Page Variables
 
 $page_url = '/404';
 $page_title = 'Page Not Found';
@@ -7,7 +7,7 @@ $page_robots = 'noindex, nofollow';
 
 ?>
 
-<?php	//	Header
+<?php //  Header
 require_once 'snippets/header.php'; ?>
 
 <main role="main">
@@ -23,5 +23,5 @@ require_once 'snippets/header.php'; ?>
 
 </main>
 
-<?php	//	Header
+<?php //  Footer
 require_once 'snippets/footer.php'; ?>

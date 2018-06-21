@@ -5,14 +5,10 @@
  *  Imports
  */
 
-/*
- *  Test
- */
 const test = (function () {
   function showItsWorking() {
     console.log('its working');
   }
- 
 
   //  Public: initialise
   function init() {

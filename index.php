@@ -1,13 +1,13 @@
-<?php   //  Page Variables
+<?php //  Page Variables
 
-$page_url			=	'/';
-$page_title  		=   'Home';
-$page_description	=   'A starting point for static sites.';
-$page_robots		=	false;
+$page_url = '/';
+$page_title = 'Home';
+$page_description = 'A starting point for static sites.';
+$page_robots = false;
 
 ?>
 
-<?php	//	Header
+<?php //  Header
 require_once 'snippets/header.php'; ?>
 
 <main role="main">
@@ -20,7 +20,7 @@ require_once 'snippets/header.php'; ?>
 		</header>
 
 		<section>
-			<?php	//	Fetch a snippet
+      <?php //  Fetch a snippet
 			require_once 'snippets/snippet.php'; ?>
 		</section>
 
@@ -28,5 +28,5 @@ require_once 'snippets/header.php'; ?>
 
 </main>
 
-<?php	//	Header
+<?php //  Footer
 require_once 'snippets/footer.php'; ?>

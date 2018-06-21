@@ -24,44 +24,26 @@ function isInViewport(element, sides = { top: true, right: true, bottom: true, l
   //  allowance gives a percentage of leeway on all sides
   //  20% becomes an allowance of 0.2
   const allowance = (parseInt(percentage, 10) / 100);
-  const returnArray = [];
-  let verdict = true;
 
   //  Add the boolean for all applicable sides to the returnArray
   if (sides.top) {
-    returnArray.push(
-      rect.top >= (0 - (height * allowance))
-    );
+    if (!(rect.top >= (0 - (height * allowance)))) return false;
   }
 
   if (sides.right) {
-    returnArray.push(
-      rect.right <= (width + (width * allowance))
-    );
+    if (!(rect.right <= (width + (width * allowance)))) return false;
   }
 
   if (sides.bottom) {
-    returnArray.push(
-      rect.bottom <= (height + (height * allowance))
-    );
+    if (!(rect.bottom <= (height + (height * allowance)))) return false;
   }
 
   if (sides.left) {
-    returnArray.push(
-      rect.left >= (0 - (width * allowance))
-    );
+    if (!(rect.left >= (0 - (width * allowance)))) return false;
   }
 
-  //  If any applicable sides return false,
-  //  set the overall verdict to false
-  for (const side of returnArray) {
-    if (!side) {
-      verdict = false;
-    }
-  }
-
-  //  Return the final verdict
-  return verdict;
+  //  If all check passed, return true 
+  return true;
 }
 
 
