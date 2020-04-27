@@ -81,29 +81,15 @@
 
 
 //  Custom Underline
-//  @include underline($blue, $light, 3%, 97%);
+//  @include underline($green, 3%, 100%, 2px);
 
-@mixin underline($bg-color, $underline-color, $underline-size, $position) {
+@mixin underline($underline-color, $underline-size, $position, $offset:0px) {
   text-decoration: none;
   background-image: linear-gradient(rgba($underline-color, 1), rgba($underline-color, 1));
   background-repeat: repeat-x;
   background-size: $underline-size $underline-size;
   background-position: 0 $position;
-
-  // So descenders cut through the underline
-  text-shadow:
-    3px 0 $bg-color,
-    2px 0 $bg-color,
-    1px 0 $bg-color,
-    -1px 0 $bg-color,
-    -2px 0 $bg-color,
-    -3px 0 $bg-color;
-
-
-  // Adjustment for position on retina
-  @media (-webkit-min-device-pixel-ratio: 1.75), (min-resolution: 168dppx) {
-    background-position: 0 ($position / 1.02);
-  }
+  padding-bottom: $offset;
 }
 
 //  Strip Unit
